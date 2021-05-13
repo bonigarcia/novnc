@@ -1,16 +1,19 @@
-FROM psharkey/novnc
+FROM alpine:3.13.5
 
-COPY vnc-autofocus.html /root/noVNC
+RUN apk --no-cache --update --upgrade add \
+        bash \
+        python3 \
+        python3-dev \
+        gfortran \
+        py-pip \
+        build-base \
+        procps \
+        git
 
-RUN sed -i '/http:\/\/dl-6.alpinelinux.org\/alpine\/edge\/testing/d' /etc/apk/repositories
+RUN pip install --no-cache-dir numpy
 
-RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
-echo "http://dl-3.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
-echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
-echo "http://dl-5.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN git clone https://github.com/novnc/noVNC /root/noVNC && \
+    git clone https://github.com/kanaka/websockify /root/noVNC/utils/websockify
 
-RUN apk update upgrade && apk add ffmpeg build-base python python-dev py-pip
+ENTRYPOINT [ "bash", "/root/noVNC/utils/launch.sh" ]
 
-RUN pip install vnc2flv
-
-RUN echo secret > passwd_file
