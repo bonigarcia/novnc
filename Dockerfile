@@ -22,5 +22,11 @@ RUN git config --global advice.detachedHead false && \
     git clone https://github.com/novnc/noVNC --branch ${NOVNC_TAG} /root/noVNC && \
     git clone https://github.com/novnc/websockify --branch ${WEBSOCKIFY_TAG} /root/noVNC/utils/websockify
 
+RUN cp /root/noVNC/vnc.html /root/noVNC/index.html
+
+RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$AUTOCONNECT\" ]; then sed -i \"s/'autoconnect', false/'autoconnect', '\$AUTOCONNECT'/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/launch.sh
+
+RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$VNC_PASSWORD\" ]; then sed -i \"s/WebUtil.getConfigVar('password')/'\$VNC_PASSWORD'/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/launch.sh
+
 ENTRYPOINT [ "bash", "/root/noVNC/utils/launch.sh" ]
 
