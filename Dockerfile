@@ -4,6 +4,8 @@ ENV NOVNC_TAG="v1.2.0"
 
 ENV WEBSOCKIFY_TAG="v0.9.0"
 
+ENV VNC_SERVER "localhost:5900"
+
 RUN apk --no-cache --update --upgrade add \
         bash \
         python3 \
@@ -28,5 +30,5 @@ RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$AUTOCONNECT\" ]; then sed -i \"s/'a
 
 RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$VNC_PASSWORD\" ]; then sed -i \"s/WebUtil.getConfigVar('password')/'\$VNC_PASSWORD'/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/launch.sh
 
-ENTRYPOINT [ "bash", "/root/noVNC/utils/launch.sh" ]
+ENTRYPOINT [ "bash", "-c", "/root/noVNC/utils/launch.sh --vnc ${VNC_SERVER}" ]
 
