@@ -1,6 +1,6 @@
 FROM alpine:3.13.5
 
-ENV NOVNC_TAG="v1.3.0-beta"
+ENV NOVNC_TAG="v1.3.0"
 
 ENV WEBSOCKIFY_TAG="v0.10.0"
 
