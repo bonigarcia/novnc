@@ -1,8 +1,8 @@
-FROM alpine:3.13.5
+FROM alpine:3.21
 
-ENV NOVNC_TAG="v1.3.0"
+ENV NOVNC_TAG="v1.5.0"
 
-ENV WEBSOCKIFY_TAG="v0.10.0"
+ENV WEBSOCKIFY_TAG="v0.12.0"
 
 ENV VNC_SERVER "localhost:5900"
 
@@ -16,9 +16,9 @@ RUN apk --no-cache --update --upgrade add \
         procps \
         git
 
-RUN pip install --no-cache-dir numpy
+RUN pip install --no-cache-dir --break-system-packages numpy
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
+#RUN ln -s /usr/bin/python3 /usr/bin/python
 
 RUN git config --global advice.detachedHead false && \
     git clone https://github.com/novnc/noVNC --branch ${NOVNC_TAG} /root/noVNC && \
@@ -33,4 +33,3 @@ RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$VNC_PASSWORD\" ]; then sed -i \"s/W
 RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$VIEW_ONLY\" ]; then sed -i \"s/UI.rfb.viewOnly = UI.getSetting('view_only');/UI.rfb.viewOnly = \$VIEW_ONLY;/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/novnc_proxy
 
 ENTRYPOINT [ "bash", "-c", "/root/noVNC/utils/novnc_proxy --vnc ${VNC_SERVER}" ]
-
