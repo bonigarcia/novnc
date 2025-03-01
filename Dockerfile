@@ -4,7 +4,7 @@ ENV NOVNC_TAG="v1.5.0"
 
 ENV WEBSOCKIFY_TAG="v0.13.0"
 
-ENV VNC_SERVER "localhost:5900"
+ENV VNC_SERVER="localhost:5900"
 
 RUN apk --no-cache --update --upgrade add \
         bash \
