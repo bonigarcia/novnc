@@ -1,5 +1,4 @@
 [![](https://img.shields.io/docker/pulls/bonigarcia/novnc?style=flat-square)](https://hub.docker.com/r/bonigarcia/novnc)
-[![](https://img.shields.io/docker/cloud/build/bonigarcia/novnc?style=flat-square)]()
 [![License badge](https://img.shields.io/badge/license-Apache2-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Twitter Follow](https://img.shields.io/twitter/follow/boni_gg.svg?style=social)](https://twitter.com/boni_gg)
 
