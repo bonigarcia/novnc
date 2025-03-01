@@ -9,16 +9,16 @@ Standalone noVNC client based on Alpine (available on [Docker Hub]). It allows t
 
 ## Example
 
-The following example use Chrome in Docker (image created and maintained by [Aerokube]) which starts a VNC server:
+The following example use Chrome in Docker (image created and maintained by [Selenium]) which starts a VNC server:
 
 1. Start Docker container with VNC server:
 ```
-docker run --rm --cap-add=SYS_ADMIN -p 4444:4444 -p 5900:5900 -e ENABLE_VNC=true selenoid/vnc:chrome_91.0
+docker run --rm -p 4444:4444 -p 5900:5900 --net grid --name selenium --shm-size="2g" selenium/standalone-chrome:latest
 ```
 
 2. Start Docker container with noVNC:
 ```
-docker run --rm --name novnc -p 6080:6080 -e AUTOCONNECT=true -e VNC_PASSWORD=selenoid -e VNC_SERVER=172.17.0.1:5900 -e VIEW_ONLY=false bonigarcia/novnc:1.1.0
+docker run --rm --name novnc -p 6080:6080 --net grid -e AUTOCONNECT=true -e VNC_PASSWORD=secret -e VNC_SERVER=172.17.0.1:5900 bonigarcia/novnc:1.2.0
 ```
 
 3. Connect to: http://localhost:6080/
@@ -28,10 +28,10 @@ This approach is used in [WebDriverManager].
 
 ## About
 
-bonigarcia/novnc (Copyright &copy; 2021) is an open-source project created and maintained by [Boni García], licensed under the terms of [Apache 2.0 License].
+bonigarcia/novnc (Copyright &copy; 2021-2025) is an open-source project created and maintained by [Boni García], licensed under the terms of [Apache 2.0 License].
 
 [Apache 2.0 License]: https://www.apache.org/licenses/LICENSE-2.0
 [Boni García]: https://bonigarcia.dev/
 [WebDriverManager]: https://bonigarcia.dev/webdrivermanager/
-[Aerokube]: https://aerokube.com/selenoid/latest/
+[Selenium]: https://github.com/SeleniumHQ/docker-selenium
 [Docker Hub]: https://hub.docker.com/r/bonigarcia/novnc
