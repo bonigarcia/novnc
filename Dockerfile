@@ -2,7 +2,7 @@ FROM alpine:3.21
 
 ENV NOVNC_TAG="v1.5.0"
 
-ENV WEBSOCKIFY_TAG="v0.12.0"
+ENV WEBSOCKIFY_TAG="v0.13.0"
 
 ENV VNC_SERVER "localhost:5900"
 
@@ -17,8 +17,6 @@ RUN apk --no-cache --update --upgrade add \
         git
 
 RUN pip install --no-cache-dir --break-system-packages numpy
-
-#RUN ln -s /usr/bin/python3 /usr/bin/python
 
 RUN git config --global advice.detachedHead false && \
     git clone https://github.com/novnc/noVNC --branch ${NOVNC_TAG} /root/noVNC && \
