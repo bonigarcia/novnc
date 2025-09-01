@@ -4,7 +4,7 @@
 
 # noVNC Docker image
 
-Standalone noVNC client based on Alpine (available on [Docker Hub]). It allows to autoconnect to the VNC server, pass the VNC password, and set view-only mode usin environment variables.
+Standalone noVNC client based on Alpine (available on [Docker Hub]). It allows to auto-connect to the VNC server, pass the VNC password, and set view-only mode using environment variables.
 
 ## Example
 
@@ -17,7 +17,7 @@ docker run --rm -p 4444:4444 -p 5900:5900 --net grid --name selenium --shm-size=
 
 2. Start Docker container with noVNC:
 ```
-docker run --rm --name novnc -p 6080:6080 --net grid -e AUTOCONNECT=true -e VNC_PASSWORD=secret -e VNC_SERVER=172.17.0.1:5900 bonigarcia/novnc:1.2.0
+docker run --rm --name novnc -p 6080:6080 --net grid -e AUTOCONNECT=true -e VNC_PASSWORD=secret -e VNC_SERVER=172.17.0.1:5900 bonigarcia/novnc:1.3.0
 ```
 
 3. Connect to: http://localhost:6080/
